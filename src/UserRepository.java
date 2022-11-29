@@ -7,13 +7,22 @@ import java.util.Objects;
 
 public class UserRepository extends Repository<User> {
 
+    private List<User> list;
+
     public UserRepository(List<User> list) {
-        super(list);
+        this.list = list;
     }
 
-    final Comparator<User> SORT_BY_USERNAME = (User user1, User user2) -> user1.getUsername().compareToIgnoreCase(user2.getUsername());
-    final Comparator<User> SORT_BY_FIRST_NAME = (User user1, User user2) -> user1.getFirstName().compareToIgnoreCase(user2.getFirstName());
-    final Comparator<User> SORT_BY_LAST_NAME = (User user1, User user2) -> user1.getLastName().compareToIgnoreCase(user2.getLastName());
+    public UserRepository() {
+        this.list = new ArrayList<>();
+    }
+
+    final Comparator<User> SORT_BY_USERNAME = (User user1, User user2) -> user1.getUsername()
+            .compareToIgnoreCase(user2.getUsername());
+    final Comparator<User> SORT_BY_FIRST_NAME = (User user1, User user2) -> user1.getFirstName()
+            .compareToIgnoreCase(user2.getFirstName());
+    final Comparator<User> SORT_BY_LAST_NAME = (User user1, User user2) -> user1.getLastName()
+            .compareToIgnoreCase(user2.getLastName());
 
     public @NotNull List<String> getDomains() {
         List<String> domainList = new ArrayList<>();
@@ -26,11 +35,9 @@ public class UserRepository extends Repository<User> {
                 domainList.add(userName);
             }
 
-
         }
         return domainList;
     }
-
 
     @Override
     public void save(User element) {
@@ -60,5 +67,23 @@ public class UserRepository extends Repository<User> {
     @Override
     protected boolean validate(User user) {
         return !isEmailUsed(user);
+    }
+
+    @Override
+    public int count() {
+        return this.list.size();
+    }
+
+    @Override
+    public User find(int index) {
+        return this.list.get(index);
+    }
+
+    @Override
+    public void printList() {
+        System.out.println("Countries in this list:");
+        for (User user : list) {
+            System.out.println(user);
+        }
     }
 }

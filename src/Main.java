@@ -35,7 +35,7 @@ public class Main {
         products.save(new Product("Beans", 15));
         products.save(new Product("milk", 45));
 
-        // products.printList();
+        products.printList();
 
         List<Product> sortedProducts = products.getAllSortedBy("stock");
         // showList(sortedProducts);
